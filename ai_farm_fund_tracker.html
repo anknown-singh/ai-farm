@@ -1,0 +1,339 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --g:#00ff88;--gd:#00cc66;--gm:#004422;
+    --bg:#0a0f0a;--bg2:#0e160e;--bg3:#121a12;
+    --border:#1a2e1a;--border2:#00ff8833;
+    --text:#b8d4b8;--textm:#6a9a6a;
+    --warn:#ffcc00;--danger:#ff4444;--info:#00ccff;
+  }
+  body{background:var(--bg);color:var(--text);font-family:'Share Tech Mono',monospace;font-size:13px;line-height:1.6;min-height:100vh;padding:0}
+  .root{padding:1rem 1.25rem 2rem}
+
+  .header{border-bottom:1px solid var(--border2);padding-bottom:1rem;margin-bottom:1.5rem}
+  .blink{animation:blink 1s step-end infinite;color:var(--g)}
+  @keyframes blink{50%{opacity:0}}
+  .logo{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:600;color:var(--g);letter-spacing:2px}
+  .sub{color:var(--textm);font-size:11px;margin-top:2px}
+  .status-bar{display:flex;gap:1.5rem;margin-top:12px;flex-wrap:wrap}
+  .stat-pill{font-size:11px;color:var(--textm)}
+  .stat-pill span{color:var(--g)}
+
+  .section-label{font-size:11px;color:var(--textm);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px}
+  .section{margin-bottom:1.75rem}
+
+  .progress-outer{background:var(--bg3);border:1px solid var(--border2);border-radius:2px;height:28px;position:relative;overflow:hidden}
+  .progress-bar{height:100%;background:linear-gradient(90deg,var(--gm),var(--g));transition:width 1.5s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:8px}
+  .progress-bar span{font-size:11px;color:#000;font-weight:600}
+  .progress-label{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--textm)}
+  .progress-label b{color:var(--g);font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:600}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:12px 14px}
+  .card-val{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:600;color:var(--g);margin-top:2px}
+  .card-val.warn{color:var(--warn)}
+  .card-val.info{color:var(--info)}
+  .card-label{font-size:10px;color:var(--textm);letter-spacing:1px;text-transform:uppercase}
+
+  .milestone-list{display:flex;flex-direction:column;gap:8px}
+  .milestone{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:10px 14px}
+  .milestone.unlocked{border-color:var(--g);background:#001a0d}
+  .milestone.active{border-color:var(--warn)}
+  .m-header{display:flex;justify-content:space-between;align-items:center}
+  .m-name{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;color:var(--text)}
+  .milestone.unlocked .m-name{color:var(--g)}
+  .milestone.active .m-name{color:var(--warn)}
+  .m-tag{font-size:10px;padding:2px 8px;border-radius:2px;background:var(--gm);color:var(--g);letter-spacing:1px}
+  .m-tag.active{background:#332200;color:var(--warn)}
+  .m-tag.locked{background:#1a0000;color:#664444}
+  .m-progress{margin-top:8px;background:var(--bg3);height:5px;border-radius:1px;overflow:hidden}
+  .m-progress-fill{height:100%;border-radius:1px;transition:width 1.2s ease}
+  .m-progress-fill.green{background:var(--g)}
+  .m-progress-fill.amber{background:var(--warn)}
+  .m-progress-fill.red{background:#441010}
+  .m-meta{display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:var(--textm)}
+  .m-meta b{color:var(--text)}
+
+  .currency-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+  .cur-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:10px 12px;cursor:pointer;transition:border-color .2s}
+  .cur-card:hover{border-color:var(--border2)}
+  .cur-top{display:flex;align-items:center;gap:8px}
+  .cur-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+  .cur-icon.fiat{background:#0a1a2a;color:var(--info)}
+  .cur-icon.crypto{background:#1a1200;color:var(--warn)}
+  .cur-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;color:var(--text)}
+  .cur-type{font-size:9px;color:var(--textm);letter-spacing:1px;text-transform:uppercase}
+  .cur-addr{font-size:9px;color:#444;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  .feed{display:flex;flex-direction:column;gap:6px}
+  .feed-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:3px}
+  .feed-dot{width:7px;height:7px;border-radius:50%;background:var(--g);flex-shrink:0;box-shadow:0 0 6px var(--g)}
+  .feed-dot.c{background:var(--warn);box-shadow:0 0 6px var(--warn)}
+  .feed-info{flex:1}
+  .feed-name{font-size:12px;color:var(--text)}
+  .feed-time{font-size:9px;color:var(--textm)}
+  .feed-amt{font-family:'Rajdhani',sans-serif;font-size:13px;color:var(--g);font-weight:600;white-space:nowrap}
+  .feed-amt.c{color:var(--warn)}
+
+  .table-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th{text-align:left;padding:6px 10px;color:var(--textm);font-size:10px;letter-spacing:2px;border-bottom:1px solid var(--border);font-weight:400;text-transform:uppercase}
+  td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text)}
+  tr:hover td{background:var(--bg2)}
+  .tag-need{color:var(--danger);font-size:10px}
+  .tag-avail{color:var(--g);font-size:10px}
+  .tag-partial{color:var(--warn);font-size:10px}
+  .price-col{font-family:'Rajdhani',sans-serif;font-size:14px;color:var(--text)}
+
+  .tabs{display:flex;gap:0;margin-bottom:1.25rem;border-bottom:1px solid var(--border)}
+  .tab{padding:8px 16px;font-size:12px;color:var(--textm);cursor:pointer;letter-spacing:1px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s}
+  .tab:hover{color:var(--text)}
+  .tab.active{color:var(--g);border-bottom-color:var(--g)}
+
+  .panel{display:none}
+  .panel.active{display:block}
+
+  .ticker{font-size:11px;color:var(--textm);padding:6px 0;border-top:1px solid var(--border);margin-top:1.5rem;overflow:hidden;white-space:nowrap}
+  .ticker span{margin-right:2rem}
+  .ticker .up{color:var(--g)}
+  .ticker .dn{color:var(--danger)}
+
+  .top-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+  .prompt-tag{font-size:10px;color:var(--g);letter-spacing:1px}
+</style>
+
+<div class="root">
+  <div class="top-nav">
+    <div>
+      <div class="logo">AI_FARM <span class="blink">_</span></div>
+      <div class="sub">> FUND TRACKER v1.0 // EST. 2025 // PUNE, INDIA</div>
+    </div>
+    <div style="text-align:right;font-size:10px;color:var(--textm)">
+      <div id="clock"></div>
+      <div style="color:var(--g);margin-top:2px">SYS: ONLINE</div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <div class="stat-pill">STATUS: <span>ACTIVE</span></div>
+    <div class="stat-pill">CONTRIBUTORS: <span>12</span></div>
+    <div class="stat-pill">CAMPAIGN DAY: <span id="daycount">--</span></div>
+    <div class="stat-pill">NEXT MILESTONE: <span>GPU SERVER #1</span></div>
+  </div>
+
+  <div class="ticker" id="ticker"></div>
+
+  <br>
+  <div class="section">
+    <div class="section-label">> total funds raised</div>
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:600;color:var(--g)" id="total-display">₹0</div>
+      <div style="font-size:11px;color:var(--textm)">of ₹28,50,000 goal</div>
+    </div>
+    <div class="progress-outer">
+      <div class="progress-bar" id="main-bar" style="width:0%"><span id="pct-label">0%</span></div>
+    </div>
+    <div class="progress-label">
+      <span>₹0 raised</span>
+      <span><b id="remaining">₹28,50,000</b> remaining</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="grid3">
+      <div class="card">
+        <div class="card-label">fiat received</div>
+        <div class="card-val" id="fiat-total">₹3,45,000</div>
+      </div>
+      <div class="card">
+        <div class="card-label">crypto received</div>
+        <div class="card-val warn" id="crypto-total">₹1,83,500</div>
+      </div>
+      <div class="card">
+        <div class="card-label">contributors</div>
+        <div class="card-val info">12</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('milestones')">milestones</div>
+    <div class="tab" onclick="switchTab('currencies')">accept currencies</div>
+    <div class="tab" onclick="switchTab('equipment')">equipment list</div>
+    <div class="tab" onclick="switchTab('feed')">fund feed</div>
+  </div>
+
+  <div class="panel active" id="panel-milestones">
+    <div class="section-label">> equipment milestones</div>
+    <div class="milestone-list" id="milestone-list"></div>
+  </div>
+
+  <div class="panel" id="panel-currencies">
+    <div class="section-label">> accepted currencies</div>
+    <div style="margin-bottom:12px;font-size:11px;color:var(--textm)">All contributions converted to INR at live rates. Contact admin for wallet/account details.</div>
+    <div class="currency-grid" id="cur-grid"></div>
+  </div>
+
+  <div class="panel" id="panel-equipment">
+    <div class="section-label">> full equipment manifest</div>
+    <div class="table-wrap">
+      <table id="eq-table">
+        <thead><tr><th>#</th><th>item</th><th>qty</th><th>unit cost</th><th>total</th><th>status</th></tr></thead>
+        <tbody id="eq-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-feed">
+    <div class="section-label">> recent contributions</div>
+    <div class="feed" id="feed-list"></div>
+  </div>
+</div>
+
+<script>
+const TOTAL_RAISED = 528500;
+const GOAL = 2850000;
+
+const milestones = [
+  {name:"GPU Server #1 (4x RTX 4090)",cost:850000,raised:528500,status:"active"},
+  {name:"Primary Storage NAS (200TB)",cost:320000,raised:0,status:"locked"},
+  {name:"Networking (10GbE Switch + Cabling)",cost:180000,raised:0,status:"locked"},
+  {name:"UPS + Power Distribution",cost:250000,raised:0,status:"locked"},
+  {name:"Cooling System (AC + Racks)",cost:420000,raised:0,status:"locked"},
+  {name:"GPU Server #2 (4x RTX 4090)",cost:850000,raised:0,status:"locked"},
+  {name:"Dedicated Fibre Internet (setup)",cost:180000,raised:0,status:"locked"},
+];
+
+const currencies = [
+  {name:"INR",label:"₹ Rupee",type:"fiat",icon:"₹"},
+  {name:"USD",label:"$ US Dollar",type:"fiat",icon:"$"},
+  {name:"EUR",label:"€ Euro",type:"fiat",icon:"€"},
+  {name:"GBP",label:"£ Pound",type:"fiat",icon:"£"},
+  {name:"AED",label:"د.إ Dirham",type:"fiat",icon:"AE"},
+  {name:"SGD",label:"S$ Singapore",type:"fiat",icon:"SG"},
+  {name:"JPY",label:"¥ Yen",type:"fiat",icon:"¥"},
+  {name:"CAD",label:"C$ Canadian",type:"fiat",icon:"C$"},
+  {name:"BTC",label:"Bitcoin",type:"crypto",icon:"₿"},
+  {name:"ETH",label:"Ethereum",type:"crypto",icon:"Ξ"},
+  {name:"USDT",label:"Tether (TRC20)",type:"crypto",icon:"₮"},
+  {name:"USDT",label:"Tether (ERC20)",type:"crypto",icon:"₮"},
+  {name:"SOL",label:"Solana",type:"crypto",icon:"◎"},
+  {name:"BNB",label:"BNB Chain",type:"crypto",icon:"B"},
+  {name:"MATIC",label:"Polygon",type:"crypto",icon:"⬡"},
+  {name:"DOGE",label:"Dogecoin",type:"crypto",icon:"D"},
+];
+
+const equipment = [
+  ["01","RTX 4090 GPU (x4)","8","75,000","6,00,000","need"],
+  ["02","Server Chassis + PSU","2","95,000","1,90,000","need"],
+  ["03","AMD EPYC CPU","2","1,20,000","2,40,000","need"],
+  ["04","ECC RAM 512GB Kit","2","85,000","1,70,000","need"],
+  ["05","NVMe Boot SSD 2TB (x2)","4","8,500","34,000","need"],
+  ["06","10GbE Network Switch","1","95,000","95,000","need"],
+  ["07","NAS Storage 200TB","1","3,20,000","3,20,000","need"],
+  ["08","APC Smart UPS 10kVA","2","1,10,000","2,20,000","need"],
+  ["09","Server Rack 42U","2","35,000","70,000","need"],
+  ["10","AC Unit 3-ton","1","1,40,000","1,40,000","need"],
+  ["11","Fibre Internet Setup","1","1,80,000","1,80,000","need"],
+  ["12","Cable Management + PDU","1","45,000","45,000","need"],
+];
+
+const feed = [
+  {name:"anon_0x7f3d","amt":"₹55,000","cur":"INR","time":"2h ago",crypto:false},
+  {name:"0x4a2...8b3c","amt":"0.18 ETH","cur":"ETH","time":"5h ago",crypto:true},
+  {name:"raj_k","amt":"₹1,00,000","cur":"INR","time":"1d ago",crypto:false},
+  {name:"0xB22...9f1a","amt":"0.004 BTC","cur":"BTC","time":"2d ago",crypto:true},
+  {name:"anon_sg99","amt":"S$ 1,200","cur":"SGD","time":"3d ago",crypto:false},
+  {name:"0xDe9...11cc","amt":"420 USDT","cur":"USDT","time":"4d ago",crypto:true},
+  {name:"meera_h","amt":"₹75,000","cur":"INR","time":"5d ago",crypto:false},
+  {name:"anon_ae44","amt":"AED 3,000","cur":"AED","time":"6d ago",crypto:false},
+];
+
+const tickers = [
+  ["BTC","₹70,24,500","+1.2%",true],
+  ["ETH","₹2,98,400","+0.8%",true],
+  ["USDT","₹83.42","0%",true],
+  ["SOL","₹15,200","+3.1%",true],
+  ["USD","₹83.42","+0.1%",false],
+  ["EUR","₹90.15","-0.2%",false],
+  ["GBP","₹1,06.80","+0.3%",false],
+];
+
+function fmt(n){return "₹"+Number(n).toLocaleString('en-IN')}
+
+function renderAll(){
+  const pct = Math.round((TOTAL_RAISED/GOAL)*100);
+  document.getElementById('total-display').textContent = fmt(TOTAL_RAISED);
+  document.getElementById('remaining').textContent = fmt(GOAL-TOTAL_RAISED);
+  setTimeout(()=>{
+    const bar = document.getElementById('main-bar');
+    bar.style.width = pct+"%";
+    document.getElementById('pct-label').textContent = pct+"%";
+  },300);
+
+  const ml = document.getElementById('milestone-list');
+  ml.innerHTML = milestones.map(m=>{
+    const p = Math.min(100,Math.round((m.raised/m.cost)*100));
+    const cls = m.status==='active'?'active':m.raised>=m.cost?'unlocked':'';
+    const tag = m.status==='active'?'<span class="m-tag active">ACTIVE</span>':m.raised>=m.cost?'<span class="m-tag">FUNDED</span>':'<span class="m-tag locked">LOCKED</span>';
+    const fillCls = m.status==='active'?'amber':m.raised>=m.cost?'green':'red';
+    return `<div class="milestone ${cls}">
+      <div class="m-header"><div class="m-name">${m.name}</div>${tag}</div>
+      <div class="m-progress"><div class="m-progress-fill ${fillCls}" style="width:${p}%"></div></div>
+      <div class="m-meta"><span>raised: <b>${fmt(m.raised)}</b></span><span>goal: <b>${fmt(m.cost)}</b></span><span><b>${p}%</b></span></div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('cur-grid').innerHTML = currencies.map(c=>`
+    <div class="cur-card">
+      <div class="cur-top">
+        <div class="cur-icon ${c.type}">${c.icon}</div>
+        <div><div class="cur-name">${c.name}</div><div class="cur-type">${c.type}</div></div>
+      </div>
+      <div class="cur-addr">${c.label}</div>
+    </div>`).join('');
+
+  document.getElementById('eq-body').innerHTML = equipment.map(r=>`
+    <tr><td style="color:var(--textm)">${r[0]}</td><td>${r[1]}</td><td style="color:var(--textm)">${r[2]}</td>
+    <td class="price-col">₹${r[3]}</td><td class="price-col" style="color:var(--g)">₹${r[4]}</td>
+    <td class="tag-need">NEEDED</td></tr>`).join('');
+
+  document.getElementById('feed-list').innerHTML = feed.map(f=>`
+    <div class="feed-item">
+      <div class="feed-dot ${f.crypto?'c':''}"></div>
+      <div class="feed-info">
+        <div class="feed-name">${f.name}</div>
+        <div class="feed-time">${f.time} · ${f.cur}</div>
+      </div>
+      <div class="feed-amt ${f.crypto?'c':''}">${f.amt}</div>
+    </div>`).join('');
+
+  document.getElementById('ticker').innerHTML = '>> LIVE RATES:  '+tickers.map(t=>`<span>${t[0]}: ${t[1]} <span class="${t[2].startsWith('+')?'up':'dn'}">${t[2]}</span></span>`).join('');
+}
+
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const names=['milestones','currencies','equipment','feed'];
+    t.classList.toggle('active',names[i]===name);
+  });
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+}
+
+function updateClock(){
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleTimeString('en-IN',{hour12:false})+' IST';
+}
+
+const start = new Date('2025-01-01');
+const today = new Date();
+const days = Math.floor((today-start)/(1000*60*60*24));
+document.getElementById('daycount').textContent = days;
+
+setInterval(updateClock,1000);
+updateClock();
+renderAll();
+</script>
